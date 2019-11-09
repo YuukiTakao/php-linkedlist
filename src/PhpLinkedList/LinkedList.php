@@ -20,7 +20,7 @@ class LinkedList
     public function insert($data, int $order_number=1): bool
     {
         if ($order_number < 1) {
-            throw new Exception('指定できるのは1以上の整数のみです');
+            throw new Exception('Only integers greater than 1 can be specified');
         }
         $previous_node = $this->getNode($order_number - 1);
         if (is_null($previous_node)) {
@@ -40,9 +40,7 @@ class LinkedList
     {
         $target_node = $this->getNode($position);
         if (is_null($target_node)) {
-            // throw new Exception("指定の場所に要素が存在しません");
-            var_dump('指定の要素はありません');
-            return null;
+            throw new Exception('There are no node in the specified order');
         }
         
         return $target_node->getData();
@@ -70,8 +68,6 @@ class LinkedList
             $current_node = $current_node->getNextNode();
         }
 
-        // var_dump('hogehoge');
-        // var_dump($current_node);
         return $current_node;
     }
 }
