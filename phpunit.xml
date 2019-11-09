@@ -8,6 +8,9 @@
         convertWarningsToExceptions="true"
         processIsolation="false"
         stopOnFailure="false">
+    <php>
+        <ini name="xdebug.show_exception_trace" value="1"/>
+    </php>
     <testsuite name="Unit Test Suite">
         <directory suffix="Test.php">./tests</directory>
     </testsuite>
