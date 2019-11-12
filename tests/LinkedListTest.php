@@ -16,6 +16,16 @@ class LinkedListTest extends TestCase
         $this->assertEquals($linked_list->get(1), 'Two');
     }
 
+    public function testRemove() 
+    {
+        $linked_list = new LinkedList();
+        $linked_list->insert('One');
+        $linked_list->insert('Two');
+        $this->assertEquals($linked_list->get(2), 'One');
+        $linked_list->remove(1);
+        $this->assertEquals($linked_list->get(1), 'One');
+    }
+
     public function testSize()
     {
         $linked_list = new LinkedList();

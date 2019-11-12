@@ -17,6 +17,16 @@ class LinkedList
         $this->size = 0;
     }
 
+    public function get(int $position)
+    {
+        $target_node = $this->getNode($position);
+        if (is_null($target_node)) {
+            throw new Exception('There are no node in the specified order');
+        }
+        
+        return $target_node->getData();
+    }
+
     public function insert($data, int $order_number=1): bool
     {
         if ($order_number < 1) {
@@ -36,14 +46,21 @@ class LinkedList
         return true;
     }
 
-    public function get(int $position)
+    public function remove(int $order_number): bool
     {
-        $target_node = $this->getNode($position);
-        if (is_null($target_node)) {
-            throw new Exception('There are no node in the specified order');
+        if ($order_number < 1) {
+            throw new Exception('Only integers greater than 1 can be specified');
         }
+
+        $previous_node = $this->getNode($order_number - 1);
+        $current_node = $previous_node->getNextNode();
+        if (is_null($previous_node) || is_null($current_node)) {
+            return false;
+        }
+        $previous_node->setNextNode($current_node->getNextNode());
+        unset($current_node);
         
-        return $target_node->getData();
+        return true;
     }
 
     public function size()
