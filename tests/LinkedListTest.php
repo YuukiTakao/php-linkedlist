@@ -16,14 +16,33 @@ class LinkedListTest extends TestCase
         $this->assertEquals($linked_list->get(1), 'Two');
     }
 
-    public function testRemove() 
+    public function testPop()
     {
         $linked_list = new LinkedList();
         $linked_list->add('One');
+        $linked_list->add('Two'); 
+        
+        $last_data = $linked_list->pop();
+        $this->assertEquals($last_data, 'One');
+        
+        $last_data = $linked_list->pop();
+        $this->assertEquals($last_data, 'Two');
+    }
+
+    public function testRemove() 
+    {
+        $linked_list = new LinkedList();
+
+        $linked_list->add('One');
         $linked_list->add('Two');
-        $this->assertEquals($linked_list->get(2), 'One');
+        $linked_list->add('Three');
+        $this->assertEquals($linked_list->get(2), 'Two');
+
         $linked_list->remove(1);
-        $this->assertEquals($linked_list->get(1), 'One');
+        $this->assertEquals($linked_list->get(2), 'One');
+
+        $linked_list->remove(2);
+        $this->assertEquals($linked_list->get(1), 'Two');
     }
 
     public function testCount()

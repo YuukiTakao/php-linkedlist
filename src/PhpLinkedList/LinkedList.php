@@ -19,6 +19,8 @@ class LinkedList
 
     /**
      * Insert the value newData at the specified index
+     * @param mixed $newData New data to register.
+     * @param int $index
      */
     public function add($newData, int $index=1): bool
     {
@@ -50,14 +52,24 @@ class LinkedList
         return $length;
     }
 
-    public function get(int $position)
+    public function get(int $index)
     {
-        $target_node = $this->getNode($position);
+        $target_node = $this->getNode($index);
         if (is_null($target_node)) {
             throw new Exception('There are no node in the specified index');
         }
         
         return $target_node->getData();
+    }
+
+    public function pop()
+    {
+        $last_index = $this->count();
+        // var_dump($last_index);exit;
+        $pre_last_node = $this->getNode($last_index - 1);
+        $last_data = $pre_last_node->getNextNode()->getData();
+        $pre_last_node->setNextNode(null);
+        return $last_data;
     }
 
     public function remove(int $index): bool
@@ -71,8 +83,12 @@ class LinkedList
         if (is_null($previous_node) || is_null($current_node)) {
             return false;
         }
-        $previous_node->setNextNode($current_node->getNextNode());
-        unset($current_node);
+        if ($index === $this->count()) {
+            $this->pop();
+        } else {
+            $previous_node->setNextNode($current_node->getNextNode());
+            unset($current_node);
+        }
         
         return true;
     }

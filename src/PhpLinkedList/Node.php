@@ -19,7 +19,7 @@ class Node
         return $this->current_data;
     }
 
-    public function setNextNode(Node $next_node)
+    public function setNextNode($next_node)
     {
         $this->next_node = $next_node;
     }
