@@ -9,12 +9,12 @@ use Exception;
 class LinkedList
 {
     private $first_node;
-    private $size;
+    private $count;
 
     public function __construct()
     {
         $this->first_node = new Node(null);
-        $this->size = 0;
+        $this->count = 0;
     }
 
     public function get(int $position)
@@ -27,16 +27,19 @@ class LinkedList
         return $target_node->getData();
     }
 
-    public function insert($data, int $order_number=1): bool
+    /**
+     * Insert the value newData at the specified index
+     */
+    public function add($newData, int $index=1): bool
     {
-        if ($order_number < 1) {
+        if ($index < 1) {
             throw new Exception('Only integers greater than 1 can be specified');
         }
-        $previous_node = $this->getNode($order_number - 1);
+        $previous_node = $this->getNode($index - 1);
         if (is_null($previous_node)) {
             return false;
         }
-        $new_node = new Node($data);
+        $new_node = new Node($newData);
 
         if (! is_null($previous_node->getNextNode())) {
             $new_node->setNextNode($previous_node->getNextNode());
@@ -63,7 +66,7 @@ class LinkedList
         return true;
     }
 
-    public function size()
+    public function count()
     {
         $current_node = $this->first_node->getNextNode();
         $length = 0;

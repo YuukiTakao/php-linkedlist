@@ -10,8 +10,8 @@ class LinkedListTest extends TestCase
     public function testGet()
     {
         $linked_list = new LinkedList();
-        $linked_list->insert('One');
-        $linked_list->insert('Two');
+        $linked_list->add('One');
+        $linked_list->add('Two');
         $this->assertEquals($linked_list->get(2), 'One');
         $this->assertEquals($linked_list->get(1), 'Two');
     }
@@ -19,19 +19,19 @@ class LinkedListTest extends TestCase
     public function testRemove() 
     {
         $linked_list = new LinkedList();
-        $linked_list->insert('One');
-        $linked_list->insert('Two');
+        $linked_list->add('One');
+        $linked_list->add('Two');
         $this->assertEquals($linked_list->get(2), 'One');
         $linked_list->remove(1);
         $this->assertEquals($linked_list->get(1), 'One');
     }
 
-    public function testSize()
+    public function testCount()
     {
         $linked_list = new LinkedList();
-        $linked_list->insert("One");
-        $linked_list->insert("Two");
-        $linked_list->insert("Three");
-        $this->assertEquals($linked_list->size(), 3);
+        $linked_list->add("One");
+        $linked_list->add("Two");
+        $linked_list->add("Three");
+        $this->assertEquals($linked_list->count(), 3);
     }
 }
