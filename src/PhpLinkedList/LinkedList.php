@@ -17,16 +17,6 @@ class LinkedList
         $this->count = 0;
     }
 
-    public function get(int $position)
-    {
-        $target_node = $this->getNode($position);
-        if (is_null($target_node)) {
-            throw new Exception('There are no node in the specified order');
-        }
-        
-        return $target_node->getData();
-    }
-
     /**
      * Insert the value newData at the specified index
      */
@@ -49,23 +39,6 @@ class LinkedList
         return true;
     }
 
-    public function remove(int $order_number): bool
-    {
-        if ($order_number < 1) {
-            throw new Exception('Only integers greater than 1 can be specified');
-        }
-
-        $previous_node = $this->getNode($order_number - 1);
-        $current_node = $previous_node->getNextNode();
-        if (is_null($previous_node) || is_null($current_node)) {
-            return false;
-        }
-        $previous_node->setNextNode($current_node->getNextNode());
-        unset($current_node);
-        
-        return true;
-    }
-
     public function count()
     {
         $current_node = $this->first_node->getNextNode();
@@ -77,11 +50,38 @@ class LinkedList
         return $length;
     }
 
-    private function getNode(int $position): Node
+    public function get(int $position)
+    {
+        $target_node = $this->getNode($position);
+        if (is_null($target_node)) {
+            throw new Exception('There are no node in the specified index');
+        }
+        
+        return $target_node->getData();
+    }
+
+    public function remove(int $index): bool
+    {
+        if ($index < 1) {
+            throw new Exception('Only integers greater than 1 can be specified');
+        }
+
+        $previous_node = $this->getNode($index - 1);
+        $current_node = $previous_node->getNextNode();
+        if (is_null($previous_node) || is_null($current_node)) {
+            return false;
+        }
+        $previous_node->setNextNode($current_node->getNextNode());
+        unset($current_node);
+        
+        return true;
+    }
+
+    private function getNode(int $index): Node
     {
         $current_node = $this->first_node;
         
-        for ($i = 0; $i < $position; $i++) {
+        for ($i = 0; $i < $index; $i++) {
             if (is_null($current_node)) {
                 return null;
             }
