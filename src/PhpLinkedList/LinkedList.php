@@ -8,12 +8,12 @@ use Exception;
 
 class LinkedList
 {
-    private $first_node;
+    private $default_node;
     private $count;
 
     public function __construct()
     {
-        $this->first_node = new Node(null);
+        $this->default_node = new Node(null);
         $this->count = 0;
     }
 
@@ -43,7 +43,7 @@ class LinkedList
 
     public function count()
     {
-        $current_node = $this->first_node->getNextNode();
+        $current_node = $this->default_node->getNextNode();
         $length = 0;
         while($current_node != null) {
             $length++;
@@ -52,6 +52,11 @@ class LinkedList
         return $length;
     }
 
+    /**
+     * the first node is 1
+     * $param $index
+     * @return  a data in specified last node.
+     */
     public function get(int $index)
     {
         $target_node = $this->getNode($index);
@@ -65,11 +70,17 @@ class LinkedList
     public function pop()
     {
         $last_index = $this->count();
-        // var_dump($last_index);exit;
         $pre_last_node = $this->getNode($last_index - 1);
         $last_data = $pre_last_node->getNextNode()->getData();
         $pre_last_node->setNextNode(null);
         return $last_data;
+    }
+
+    public function push($new_data)
+    {
+        $last_index = $this->count();
+        $last_node = $this->getNode($last_index);
+        $last_node->setNextNode(new Node($new_data));
     }
 
     public function remove(int $index): bool
@@ -95,7 +106,7 @@ class LinkedList
 
     private function getNode(int $index): Node
     {
-        $current_node = $this->first_node;
+        $current_node = $this->default_node;
         
         for ($i = 0; $i < $index; $i++) {
             if (is_null($current_node)) {
