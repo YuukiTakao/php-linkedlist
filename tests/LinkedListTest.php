@@ -32,6 +32,8 @@ class LinkedListTest extends TestCase
         $linked_list->add('Two');
         $this->assertEquals($linked_list->get(2), 'One');
         $this->assertEquals($linked_list->get(1), 'Two');
+        $this->assertEquals($linked_list->get(9), null);
+        $this->assertEquals($linked_list->get(0), null);
     }
 
     public function testIsEmpty()
