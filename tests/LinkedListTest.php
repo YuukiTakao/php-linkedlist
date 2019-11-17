@@ -73,11 +73,39 @@ class LinkedListTest extends TestCase
         $this->assertEquals($linked_list->get(1), 'Two');
     }
 
+    public function testRewind()
+    {
+        $numbers = new LinkedList();
+        $this->assertEquals($numbers->current(), null);
+
+        $numbers->push('One');
+        $numbers->push('Two');
+        $numbers->next();
+        $numbers->next();
+        $this->assertEquals($numbers->current(), 'Two');
+
+        $numbers->rewind();
+        $this->assertEquals($numbers->current(), 'One');
+    }
+
     public function testCurrent()
     {
-        $linked_list = new LinkedList();
-        $linked_list->add('One');
-        $linked_list->add('Two');
-        $this->assertEquals($linked_list->current(), 'One');
+        $numbers = new LinkedList();
+        $this->assertEquals($numbers->current(), null);
+        
+        $numbers->add('One');
+        $numbers->add('Two');
+        $numbers->next();
+        $this->assertEquals($numbers->current(), 'Two');
+    }
+
+    public function testValid()
+    {
+        $numbers = new LinkedList();
+        $numbers->add('One');
+        $this->assertEquals($numbers->valid(), true);
+
+        $numbers->pop();
+        $this->assertEquals($numbers->valid(), false);
     }
 }

@@ -7,13 +7,16 @@ use Exception;
 
 class LinkedList
 {
-    private $default_node;
     private $count;
+    private $current;
+    private $default_node;
+    private $position;
 
     public function __construct()
     {
         $this->default_node = new Node(null);
         $this->count = 0;
+        $this->current = $this->default_node;
     }
 
     /**
@@ -53,7 +56,7 @@ class LinkedList
 
     public function current()
     {
-        return 'One';
+        return $this->current->getData();
     }
 
     /**
@@ -71,12 +74,20 @@ class LinkedList
         return $target_node->getData();
     }
 
+    public function next(): void
+    {
+        $this->current = $this->current->getNextNode();
+    }
+
     public function pop()
     {
         $last_index = $this->count();
         $pre_last_node = $this->getNode($last_index - 1);
         $last_data = $pre_last_node->getNextNode()->getData();
         $pre_last_node->setNextNode(null);
+
+        $this->current = $pre_last_node;
+
         return $last_data;
     }
 
@@ -106,6 +117,22 @@ class LinkedList
         }
         
         return true;
+    }
+
+    public function rewind(): void
+    {
+        if (! is_null($this->default_node->getNextNode())) {
+            $this->current = $this->default_node->getNextNode();
+        }
+    }
+
+    public function valid(): bool
+    {
+        if (is_null($this->current->getNextNode())) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private function getNode(int $index): Node
