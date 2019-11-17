@@ -10,13 +10,14 @@ class LinkedList
     private $count;
     private $current;
     private $default_node;
-    private $position;
+    private $current_key;
 
     public function __construct()
     {
         $this->default_node = new Node(null);
         $this->count = 0;
         $this->current = $this->default_node;
+        $this->current_key = 0;
     }
 
     /**
@@ -79,9 +80,15 @@ class LinkedList
         return $this->default_node->getNextNode() === null ? true : false;
     }
 
+    public function key(): int
+    {
+        return $this->current_key;
+    }
+
     public function next(): void
     {
         $this->current = $this->current->getNextNode();
+        $this->current_key += 1;
     }
 
     public function pop()
@@ -89,9 +96,12 @@ class LinkedList
         $last_index = $this->count();
         $pre_last_node = $this->getNode($last_index - 1);
         $last_data = $pre_last_node->getNextNode()->getData();
-        $pre_last_node->setNextNode(null);
 
+        if ($this->current_key === $this->count()) {
+            $this->current_key -= 1;
+        }
         $this->current = $pre_last_node;
+        $pre_last_node->setNextNode(null);
 
         return $last_data;
     }
