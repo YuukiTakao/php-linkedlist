@@ -74,6 +74,11 @@ class LinkedList
         return $target_node->getData();
     }
 
+    public function isEmpty(): bool
+    {
+        return $this->default_node->getNextNode() === null ? true : false;
+    }
+
     public function next(): void
     {
         $this->current = $this->current->getNextNode();

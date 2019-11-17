@@ -25,6 +25,15 @@ class LinkedListTest extends TestCase
         $this->assertEquals($linked_list->get(1), 'Two');
     }
 
+    public function testIsEmpty()
+    {
+        $linked_list = new LinkedList();
+        $this->assertEquals($linked_list->isEmpty(), true); 
+
+        $linked_list->add('One');
+        $this->assertEquals($linked_list->isEmpty(), false); 
+    }
+
     public function testPop()
     {
         $linked_list = new LinkedList();
