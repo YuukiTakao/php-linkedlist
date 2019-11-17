@@ -5,7 +5,7 @@ namespace PhpLinkedList;
 use PhpLinkedList\Node;
 use Exception;
 
-class LinkedList
+class LinkedList 
 {
     private $count;
     private $current;
@@ -25,23 +25,19 @@ class LinkedList
      * @param mixed $newData New data to register.
      * @param int $index
      */
-    public function add($newData, int $index=1): bool
+    public function add($newData, int $index = 1): void
     {
         if ($index < 1) {
             throw new Exception('Only integers greater than 1 can be specified');
         }
-        $previous_node = $this->getNode($index - 1);
-        if (is_null($previous_node)) {
-            return false;
-        }
         $new_node = new Node($newData);
+        $previous_node = $this->getNode($index - 1);
 
         if (! is_null($previous_node->getNextNode())) {
             $new_node->setNextNode($previous_node->getNextNode());
         }
-        $previous_node->setNextNode($new_node);
 
-        return true;
+        $previous_node->setNextNode($new_node);
     }
 
     public function count()
@@ -57,7 +53,8 @@ class LinkedList
 
     public function current()
     {
-        return $this->current->getData();
+        var_dump('current');
+        return $this->get($this->current_key);
     }
 
     /**
@@ -69,7 +66,7 @@ class LinkedList
     {
         $target_node = $this->getNode($index);
         if (is_null($target_node)) {
-            throw new Exception('There are no node in the specified index');
+            return null;
         }
         
         return $target_node->getData();
@@ -82,13 +79,14 @@ class LinkedList
 
     public function key(): int
     {
+        var_dump('key');
         return $this->current_key;
     }
 
     public function next(): void
     {
-        $this->current = $this->current->getNextNode();
-        $this->current_key += 1;
+        var_dump('next');
+        ++$this->current_key;
     }
 
     public function pop()
@@ -98,7 +96,7 @@ class LinkedList
         $last_data = $pre_last_node->getNextNode()->getData();
 
         if ($this->current_key === $this->count()) {
-            $this->current_key -= 1;
+            --$this->current_key;
         }
         $this->current = $pre_last_node;
         $pre_last_node->setNextNode(null);
@@ -136,21 +134,27 @@ class LinkedList
 
     public function rewind(): void
     {
+        var_dump('rewind');
         if (! is_null($this->default_node->getNextNode())) {
             $this->current = $this->default_node->getNextNode();
+            $this->current_key = 1;
         }
     }
 
     public function valid(): bool
     {
+        var_dump('valid');
         if (is_null($this->current->getNextNode())) {
             return false;
         } else {
+            if (is_null($this->current->getNextNode()->getData())) {
+                return false;
+            }
             return true;
         }
     }
 
-    private function getNode(int $index): Node
+    private function getNode(int $index): ?Node
     {
         $current_node = $this->default_node;
         

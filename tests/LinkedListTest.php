@@ -7,6 +7,15 @@ use PhpLinkedList\LinkedList;
 
 class LinkedListTest extends TestCase
 {
+    public function testAdd()
+    {
+        $linked_list = new LinkedList();
+        $linked_list->add('One');
+        $linked_list->add('Two');
+        $linked_list->rewind();
+        $this->assertEquals(2, $linked_list->count());
+    }
+
     public function testCount()
     {
         $linked_list = new LinkedList();
