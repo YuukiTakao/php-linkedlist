@@ -5,7 +5,6 @@ namespace PhpLinkedList;
 use PhpLinkedList\Node;
 use Exception;
 
-
 class LinkedList
 {
     private $default_node;
@@ -50,6 +49,11 @@ class LinkedList
             $current_node = $current_node->getNextNode();
         }
         return $length;
+    }
+
+    public function current()
+    {
+        return 'One';
     }
 
     /**

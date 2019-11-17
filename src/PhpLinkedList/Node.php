@@ -2,7 +2,6 @@
 
 namespace PhpLinkedList;
 
-
 class Node
 {
     private $current_data;

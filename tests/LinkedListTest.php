@@ -72,4 +72,12 @@ class LinkedListTest extends TestCase
         $linked_list->remove(2);
         $this->assertEquals($linked_list->get(1), 'Two');
     }
+
+    public function testCurrent()
+    {
+        $linked_list = new LinkedList();
+        $linked_list->add('One');
+        $linked_list->add('Two');
+        $this->assertEquals($linked_list->current(), 'One');
+    }
 }
