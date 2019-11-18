@@ -4,8 +4,9 @@ namespace PhpLinkedList;
 
 use PhpLinkedList\Node;
 use Exception;
+use Iterator;
 
-class LinkedList 
+class LinkedList implements Iterator
 {
     private $count;
     private $current;
@@ -53,7 +54,6 @@ class LinkedList
 
     public function current()
     {
-        var_dump('current');
         return $this->get($this->current_key);
     }
 
@@ -79,13 +79,11 @@ class LinkedList
 
     public function key(): int
     {
-        var_dump('key');
         return $this->current_key;
     }
 
     public function next(): void
     {
-        var_dump('next');
         ++$this->current_key;
     }
 
@@ -134,7 +132,6 @@ class LinkedList
 
     public function rewind(): void
     {
-        var_dump('rewind');
         if (! is_null($this->default_node->getNextNode())) {
             $this->current = $this->default_node->getNextNode();
             $this->current_key = 1;
@@ -143,13 +140,9 @@ class LinkedList
 
     public function valid(): bool
     {
-        var_dump('valid');
-        if (is_null($this->current->getNextNode())) {
+        if ($this->current_key === $this->count()) {
             return false;
         } else {
-            if (is_null($this->current->getNextNode()->getData())) {
-                return false;
-            }
             return true;
         }
     }
