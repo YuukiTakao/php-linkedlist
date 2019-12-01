@@ -5,8 +5,9 @@ namespace PhpLinkedList;
 use PhpLinkedList\Node;
 use Exception;
 use Iterator;
+use Countable;
 
-class LinkedList implements Iterator
+class LinkedList implements Iterator, Countable
 {
     private $count;
     private $current;
