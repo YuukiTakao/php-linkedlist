@@ -1,6 +1,9 @@
 {
     "name": "php-linkedlist/php-linkedlist",
     "type": "library",
+    "description": "LinkedList library created with consistent study of data structures",
+    "homepage": "https://github.com/YuukiTakao/php-linkedlist",
+    "keywords": ["php-linkedlist", "linkedlist"],
     "require": {
         "monolog/monolog": "^2.0"
     },
